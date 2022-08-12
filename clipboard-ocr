@@ -15,6 +15,7 @@ for mime in $mimes
 do
     if [ $mime == $imgMime ]; then
         isImagePresent=true
+        break
     fi
 done
 
