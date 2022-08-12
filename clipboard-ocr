@@ -2,7 +2,7 @@
 # Description: OCR of clipboard image
 # Dependencies: xclip, tesseract
 error() {
-    printf "Error: $1\n"
+    printf 'Error: %s\n' "$1" >&2
     exit 1
 }
 
