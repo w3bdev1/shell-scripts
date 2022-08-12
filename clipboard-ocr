@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Description: OCR of clipboard image
+# Dependencies: xclip, tesseract
+error() {
+    printf "Error: $1\n"
+    exit 1
+}
+
+imgMime=image/png
+isImagePresent=false
+
+mimes=$(xclip -sel clipboard -t TARGETS -o)
+
+for mime in $mimes
+do
+    if [ $mime == $imgMime ]; then
+        isImagePresent=true
+    fi
+done
+
+if $isImagePresent; then
+    TEMP=$(mktemp -t ocrXXX.png)
+    xclip -sel clipboard -t $imgMime -o > $TEMP
+    tesseract $TEMP -
+else
+    error "No image found in clipboard"
+fi
